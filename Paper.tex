@@ -1,0 +1,93 @@
+\documentclass[11pt,a4paper,oneside]{article}
+
+%------------------
+% Fonts and typsetting
+\usepackage{color}
+\usepackage[T1]{fontenc}        % 8-bit font encoding (256 glyphs)
+\usepackage{amsfonts}		% additional characters in math mode
+\usepackage{amsmath} 		%to use \text{}
+\usepackage{amsfonts}		% additional characters in math mode
+\usepackage{amsmath} 		%to use \text{ in math mode
+\usepackage{fixltx2e}		%adds \textsubscript functionality
+
+%------------------
+% Page Layout
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
+\usepackage{paralist}		% create compact itemize and enumerate lists (inparaenum and compactlist environments)
+
+%------------------
+% Floats 
+\usepackage{graphicx}		%enables insertion of images
+\usepackage{float} 		%enables \figure[H] or [h!]
+\usepackage{booktabs}		%for professional looking tables
+\usepackage{multicol}		% enable multicolumn formatting of tables
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{calc}		% arithmetic operations, useful for 4*\textwidth..etc
+
+%------------------
+% Hyperref
+\usepackage{hyperref}
+\hypersetup{pdftex,
+linktocpage=true,
+bookmarks=true,
+colorlinks=true,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black}
+\usepackage[all]{hypcap}	% points hyperlinks to the top of the image instead of caption text
+
+%------------------
+% Header / Footer
+\usepackage{fancyhdr}
+\pagestyle{plain}
+
+
+%------------------
+% Abstract
+\usepackage{abstract}
+
+%------------------
+% Lettrines
+\usepackage{lettrine}
+
+%------------------
+% Metadata
+\title{\vspace{-15mm}%
+	\Large \textbf{Utilisation of Computer Algorithms in the Optimisation of Building Envelopes Thermal Performance}}
+\author{%
+	\textsc{Ayman Elmasry, Dr. Ahmed Atef and Dr. Hazem Eldaly}\\
+	\normalsize Dpt. of Archtiecture, Engineering Faculty, Ain Shams University
+	}
+\date{}	
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent As the architect is exposed to modern tools of architectural design such as computer simulation and architectural form generation, the architect is also exposed to technical difficulties which arise with them due to the fact that those tools require knowledge of computer programming, mathematics and physics that is not part of the standard architectural curriculum. The purpose of this article is to introduce the architect to the process of thermal design through the simulation and optimisation of building envelopes using computer algorithms and environmental simulation programmes.
+\end{abstract}
+
+\begin{multicols}{2}
+
+ Thermal comfort and internal temperatures of a building space are primarily a function of building envelope design, the building element which controls the inward and outward flow of energy and matter; architects have been faced with the dilemma of balancing the aesthetic element of envelopes with its thermal properties and performance for as long as the profession has existed.
+
+The methods used to handle this dilemma have been numerous and vary by the conditions of climate, available materials and resources, available building technologies\ldots{}etc. Theories have been formulated to assist the architect in his endeavour to control the thermal performance of buildings; however, the results are never fullproof and will always vary due to the large number of variables and constraints that are part of the thermal equation.
+
+With the development of modern science and the emergence of the computer age, new tools have been introduced to the process of architectural design to assist in the thermal design of building and in particular building envelopes, the latest of which is the the use of computer algorithms in the automated generation of building envelopes through the environmental simulation of virtual building models and feeding the results to a programme that evaluates the results and searches for the best solutions, adjusting the variables accordingly.
+
+However, as the architect approches this method, he is faced with technical difficulties which require knowledge of computer programming, mathematical optimisation and physics that he or she is usually exposed to. Therefore, an introduction to the process of algorithmic design of building envelopes is needed, and is the purpose of this article.
+
+\section{Algorithms and How they Function}
+
+Algorithms are descriptions of steps to accomplish a specific task which allow the abstraction of a problem into parameters, or variables, and procedures, which are the detailed instructions given to the computer. The user inputs values of parameters, and the computer then calculates the outputs according the given procedure.
+
+
+
+\end{multicols}
+
+\bibliographystyle{alpha}
+\bibliography{./Bibliography}
+
+\end{document}
