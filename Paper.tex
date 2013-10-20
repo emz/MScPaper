@@ -13,17 +13,24 @@
 %------------------
 % Page Layout
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
-\usepackage{paralist}		% create compact itemize and enumerate lists (inparaenum and compactlist environments)
+\usepackage{paralist}		% create compact itemize and enumerate lists (inparaenum and compactitem environments)
 
 %------------------
 % Floats 
 \usepackage{graphicx}		%enables insertion of images
+\newenvironment{Figure}		%floats are not allowed in multicols
+	{\par\medskip\noindent\minipage{\linewidth}}
+	{\endminipage\par\medskip}
+
 \usepackage{float} 		%enables \figure[H] or [h!]
 \usepackage{booktabs}		%for professional looking tables
 \usepackage{multicol}		% enable multicolumn formatting of tables
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
+\usepackage{capt-of}		%for captions in multicol environment
 \usepackage{calc}		% arithmetic operations, useful for 4*\textwidth..etc
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
 
 %------------------
 % Hyperref
@@ -41,8 +48,13 @@ urlcolor=black}
 %------------------
 % Header / Footer
 \usepackage{fancyhdr}
-\pagestyle{plain}
-
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{{October 2013}}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
 
 %------------------
 % Abstract
@@ -56,38 +68,174 @@ urlcolor=black}
 % Metadata
 \title{\vspace{-15mm}%
 	\Large \textbf{Utilisation of Computer Algorithms in the Optimisation of Building Envelopes Thermal Performance}}
-\author{%
-	\textsc{Ayman Elmasry, Dr. Ahmed Atef and Dr. Hazem Eldaly}\\
-	\normalsize Dpt. of Archtiecture, Engineering Faculty, Ain Shams University
-	}
+%\author{%
+%	\textsc{Ayman Elmasry, Dr. Ahmed Atef and Dr. Hazem Eldaly}\\
+%	\normalsize Dpt. of Architecture, Engineering Faculty, Ain Shams University
+%	}
 \date{}	
 
 \begin{document}
 \maketitle
-
+\vspace{-1.5cm}
 \begin{abstract}
-\noindent As the architect is exposed to modern tools of architectural design such as computer simulation and architectural form generation, the architect is also exposed to technical difficulties which arise with them due to the fact that those tools require knowledge of computer programming, mathematics and physics that is not part of the standard architectural curriculum. The purpose of this article is to introduce the architect to the process of thermal design through the simulation and optimisation of building envelopes using computer algorithms and environmental simulation programmes.
+\noindent As the architect is exposed to modern tools of architectural design such as computer simulation and architectural form generation, the architect is also exposed to technical difficulties which arise with them due to the fact that those tools require knowledge of computer programming, mathematics and physics that is not part of the standard architectural curriculum. This article introduces the architect to the process of thermal design by simulation and optimisation of building envelopes using computer algorithms and environmental simulation programmes, and in the process explain the essential concepts of computer programming and how it is integrated into the architectural design process to achieve thermally efficient designs.
+
+\noindent The reader is introduced to computer programming from a theoretical point of view, with an explanation of the type of input needed by the computer algorithms in order to function properly, the different types of algorithms and their output, how to define the optimisation problem and its variables, and the different types of 3D virtual modelling and environmental simulation programmes and their role in the process.
+
+\noindent Ultimately, the process is broken down into: \begin{inparaenum} \item building envelope analysis in terms of geometry and thermal variables, \item selection of suitable modelling and simulation programmes, \item choosing the most suitable algorithm, and finally \item the integration of the previous steps into a complete process with practical usable results.\end{inparaenum}
 \end{abstract}
 
 \begin{multicols}{2}
 
- Thermal comfort and internal temperatures of a building space are primarily a function of building envelope design, the building element which controls the inward and outward flow of energy and matter; architects have been faced with the dilemma of balancing the aesthetic element of envelopes with its thermal properties and performance for as long as the profession has existed.
+\section*{Introduction}
 
-The methods used to handle this dilemma have been numerous and vary by the conditions of climate, available materials and resources, available building technologies\ldots{}etc. Theories have been formulated to assist the architect in his endeavour to control the thermal performance of buildings; however, the results are never fullproof and will always vary due to the large number of variables and constraints that are part of the thermal equation.
+Thermal comfort and internal temperatures of a building space are primarily a function of building envelope design, the building element which controls the inward and outward flow of energy and matter, and architects have been faced with the dilemma of balancing the aesthetic element of envelopes with its thermal properties and performance --- among other things --- for as long as the profession has existed.
+
+The methods used to handle this dilemma have been numerous and vary by different conditions such as climate, available materials and resources, available building technologies\ldots{}etc. Theories have been formulated to assist the architect in his endeavour to control the thermal performance of buildings; however, the results are never full-proof and will always vary due to the large number of variables and constraints that are part of the thermal equation.
 
 With the development of modern science and the emergence of the computer age, new tools have been introduced to the process of architectural design to assist in the thermal design of building and in particular building envelopes, the latest of which is the the use of computer algorithms in the automated generation of building envelopes through the environmental simulation of virtual building models and feeding the results to a programme that evaluates the results and searches for the best solutions, adjusting the variables accordingly.
 
-However, as the architect approches this method, he is faced with technical difficulties which require knowledge of computer programming, mathematical optimisation and physics that he or she is usually exposed to. Therefore, an introduction to the process of algorithmic design of building envelopes is needed, and is the purpose of this article.
+However, as the architect approaches this method, he is faced with technical difficulties which to solve requires knowledge of computer programming, mathematical optimisation and physics. Therefore, an introduction to the process of algorithmic design of building envelopes is needed, and is the purpose of this article.
 
 \section{Algorithms and How they Function}
 
-Algorithms are descriptions of steps to accomplish a specific task which allow the abstraction of a problem into parameters, or variables, and procedures, which are the detailed instructions given to the computer. The user inputs values of parameters, and the computer then calculates the outputs according the given procedure.
+Algorithms are descriptions of steps to accomplish a specific task which allow the abstraction of a problem into parameters, or variables, and procedures, which are the detailed instructions given to the computer. The user inputs values of parameters, and the computer then calculates the outputs according the given procedure. The problem at hand is how to use these algorithms to create a computer programme that would analyse the building form and feed back the optimum solutions to the user (\emph{i.e.} the architect). 
 
+\paragraph{Building Geometry as Variables}\mbox{}\\[3mm]
+The first step towards achieving this goal is understand the input needed by the algorithm (the algorithm being basically computer code); the building envelope has to analysed and broken down into variables and values. As any architect knows; geometry is built up from a point, to a line, to plane and to a solid. If the user of the algorithm can translate building geometry into at least the basic building block of any geometry, then the entry of building envelope data in a form that the algorithm can understand is possible.
+
+The minimum requirement is to create a procedure for creating a point in space; this procedure will be defined for the algorithm as follows:
+\begin{compactitem}[\footnotesize$\bullet$]
+\item	{Procedure Handle\footnote{Handle: Name}:} Point\_A
+\item	{Parameters/Variables:} Cartesian Coordinates $(x,y,z)$
+\item	{Values:} $(0,0,0)$
+\end{compactitem}
+Then, the point procedure would be embedded --- or nested --- within a line procedure twice with different values for each procedure:
+\begin{compactitem}[\footnotesize$\bullet$]
+\item	{Procedure Handle:} Line\_A
+\item	{Parameters/Variables:} ({Point\_A , Point\_B})
+\item	{Values:} $[(x,y,z),(u,v,w)]$
+\end{compactitem}
+The process is repeated in the same manner until a solid geometry is formed (Fig. \ref{fig:Box}).
+
+\begin{Figure}
+	\includegraphics[width=\linewidth]{./Images/1-Box}
+	\captionof{figure}{Procedures used to define a cuboid form}
+	\label{fig:Box}
+\end{Figure}
+
+\section{Algorithmic Architecture}
+
+Now that the general description and functionality of computer algorithms has been provided, a closer look at the different types of algorithms and their purposes is naturally the next step.
+
+As far as architectural design is concerned; algorithms can be divided into two main types: \emph{Generative} and \emph{Performative}. \cite{fasoulaki08}
+
+\paragraph{Generative Algorithms}\mbox{}\\[3mm]
+Architectural generative design is a process which uses \emph{rule-based}\footnote{\emph{Rule-based}: consisting of a solid set of consecutive instructions that govern an action to produce a desired outcome} algorithms, governed by repetitive patterns and shape transformations; these algorithms can be fully automated or user controlled in a step-by-step manner. What differentiates generative algorithms from each other are the form generating systems which drive the algorithm, usually adopted from naturally occurring behaviour of living organisms. \cite{arida04}
+
+Prominent generative algorithms used for architectural form generation purposes include:
+\begin{compactenum}[\indent 1.]
+\item Cellular Automata;
+\item Voronoi Diagrams;
+\item Fractals;
+\item Shape Grammars; and
+\item L-System.
+\end{compactenum}
+
+Cellular Automata is a computational method which can simulate complex growth systems using simple rules, the initial configuration would include at least one cell (Fig. \ref{fig:CellularAuto}).
+\end{multicols}
+\begin{Figure}
+	\centering	
+	\includegraphics[width=0.7\linewidth]{./Images/2-CellularAutomata}
+	\captionof{figure}{An example of cellular automata showing (a) the sequence of generations and (b) the governing rule. \cite{wolfram02}}
+	\label{fig:CellularAuto}
+\end{Figure}
+
+\begin{multicols}{2}
+A Voronoi Diagram is a way of decomposing a space into regions, which is a process initiated with a set of points in space called generating points; then, lines are drawn from an equal distance from each two points, creating polygons or cells (Fig \ref{fig:Voronoi}).
+
+\begin{Figure}
+	\includegraphics[width=\linewidth]{./Images/3-VoronoiDiagram}
+	\captionof{figure}{A Voronoi Diagram \cite{fujita00}}
+	\label{fig:Voronoi}
+\end{Figure}
+
+\paragraph{Performative Algorithms}\mbox{}\\
+
+These types of algorithms are based on what is called optimisation algorithms; which would take a certain aspect of the building performance --- thermal performance of the envelope in this particular case --- and searches for solutions that would enhance the performance, ultimately finding the best solution. The underlying process of Performative Algorithms is called \emph{Mathematical Optimisation}.
+
+\subparagraph{Mathematical Optimisation}
+
+Optimisation mathematics and programming is called a \emph{search method}, which searches for and locates the \emph{optimum} solution. The optimum solution can be the maxium value of a function, or the minimum value of a function; therefore, all mathematical optimisation operations are either called \emph{minimisation} or \emph{maximisation} problems.
+
+The general mathematical form of unconstrained optimisation is:\\
+\begin{equation}
+\text{Minimise:} f(x), x=[x_1,x_2\dots,x_n]^T \in \mathbb{R}
+\end{equation}
+The continuous components of $x$ are called the design variables, and $f(x)$ is the objective function. The optimum vector that solves the equation is denoted by \textbf{x*} with a corresponding optimum function value of $f(\text{\textbf{x*}})$ (Fig. \ref{fig:LocalOptimum}).
+
+The full process of mathematical optimisation is to take a real world problem (\emph{e.g.} thermal performance of a building envelope), construct it into a mathematical model of fixed parameters and variables, then process it through the optimisation algorithm, leading to the practical implication of the optimum solution (Fig. \ref{fig:OptimisationModel}).
+
+\begin{Figure}
+	\includegraphics[width=\linewidth]{./Images/4-LocalOptimum}
+	\captionof{figure}{A single variable function with the optimum at \textbf{x*} \cite{snyman05}}
+	\label{fig:LocalOptimum}
+\end{Figure}
+
+\end{multicols}
+\begin{Figure}
+	\centering	
+	\includegraphics[width=0.8\linewidth]{./Images/5-OptimisationModel}
+	\captionof{figure}{The Mathematical Optimisation Modelling Process \cite{snyman05}}
+	\label{fig:OptimisationModel}
+\end{Figure}
+\begin{multicols}{2}
+
+\section{Thermal Aspect of the Optimisational Problem}
+
+Having explained the mathematical and basic programming concepts behind optimisation algorithms, the next step is to define the function in question; the \emph{objective function}. In this particular case the objective function is the thermal performance of building envelopes. The exchange of heat between the building and external environment is expressed in the following equation:
+\begin{equation}
+	Qi\pm Qc\pm Qs\pm Qv-Qe=\Delta S
+\end{equation}
+\footnotesize
+\indent$Qi=$Internal heat gain\\
+\indent$Qc=$Conduction heat gain or loss\\
+\indent$Qs=$Solar heat gain\\
+\indent$Qv=$Ventilation heat gain or loss\\
+\indent$Qe=$Evaporation heat loss\\
+\indent$\Delta S=$Difference in stored heat
+\normalsize
+
+Given that solar radiation is the most significant variable in the above equation \cite{szokolay08}, it would be benefitial --- for the sake of simplicity --- to focus on the aspect of passive solar design when considering the thermal performance of building envelopes.
+
+\paragraph{Passive Solar Control Design Variables}\mbox{}\\
+
+The previously mentioned function variables in optimisation problem of building envelope thermal performance through passive solar control can be any of the architectural elements shown in following table:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{l|l}
+		\textbf{Shape}&Surface-to-Volume Ratio\\
+		&Orientation\\
+		&\\
+		\textbf{Fabric}&Shading\\
+		&Surface Material Properties\\
+		&\\
+		\textbf{Fenestration}&Size, Position and Orientation\\
+		&Glazing Material\\
+		&Closing Mechanism\\
+		&External Shading\\
+	\end{tabular}
+	\caption{Passive Thermal Control Design Variables}
+	\label{tab:ThermalDesignVariables}
+\end{table}
+
+Although the process seems to be up till this point relatively simple; it is only theoratically so. Now that the thermal variables which would enable us to control the thermal performance are defined, the method of modelling them into a mathematical function which can be easily input into the optimisation algorithm
 
 
 \end{multicols}
 
-\bibliographystyle{alpha}
+\bibliographystyle{unsrt}
 \bibliography{./Bibliography}
 
 \end{document}
