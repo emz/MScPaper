@@ -88,7 +88,7 @@ urlcolor=black}
 
 \noindent The reader is introduced to computer programming from a theoretical point of view, with an explanation of the type of input needed by the computer algorithms in order to function properly, the different types of algorithms and their output, how to define the optimisation problem and its variables, and the different types of 3D virtual modelling and environmental simulation programmes and their role in the process.
 
-\noindent Ultimately, the process is broken down into: \begin{inparaenum} \item building envelope analysis in terms of geometry and thermal variables, \item selection of suitable modelling and simulation programmes, \item choosing the most suitable algorithm, and finally \item the integration of the previous steps into a complete process with practical usable results.\end{inparaenum}
+\noindent Ultimately, the process is broken down into: \begin{inparaenum} \item building envelope analysis in terms of geometry and its categorisation, \item determining the thermal criteria and target performance, \item modelling and simulation of the building envelope, and finally \item the programming of the algorithm and optimisation of the envelope's thermal performance.\end{inparaenum}
 \end{abstract}
 
 \begin{multicols}{2}
@@ -180,19 +180,19 @@ A Voronoi Diagram is a way of decomposing a space into regions, which is a proce
 \end{equation}
 The continuous components of $x$ are called the design variables, and $f(x)$ is the objective function. The optimum vector that solves the equation is denoted by \textbf{x*} with a corresponding optimum function value of $f(\text{\textbf{x*}})$ (Fig. \ref{fig:LocalOptimum}).
 
-		The full process of mathematical optimisation is to take a real world problem (\emph{e.g.} thermal performance of a building envelope), construct it into a mathematical model of fixed parameters and variables, then process it through the optimisation algorithm, leading to the practical implication of the optimum solution (Fig. \ref{fig:OptimisationModel}).
+		The full process of mathematical optimisation is to take a real world problem (\emph{e.g.} thermal performance of a building envelope), construct it into a mathematical model of fixed parameters and variables, then process it through the optimisation algorithm, leading to the practical implication of the optimum solution (Figures \ref{fig:LocalOptimum} and \ref{fig:OptimisationModel}).
 
 \end{multicols}
 \begin{Figure}
 	\centering
-	\includegraphics[width=0.6\linewidth]{./Images/4-LocalOptimum}
+	\includegraphics[width=0.4\linewidth]{./Images/4-LocalOptimum}
 	\captionof{figure}{A single variable function with the optimum at \textbf{x*} \cite{snyman05}}
 	\label{fig:LocalOptimum}
 \end{Figure}
 
 \begin{Figure}
 	\centering	
-	\includegraphics[width=0.7\linewidth]{./Images/5-OptimisationModel}
+	\includegraphics[width=0.8\linewidth]{./Images/5-OptimisationModel}
 	\captionof{figure}{The Mathematical Optimisation Modelling Process \cite{snyman05}}
 	\label{fig:OptimisationModel}
 \end{Figure}
@@ -276,7 +276,7 @@ The previously mentioned function variables in optimisation problem of building 
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{l|l}
+	\begin{tabular}{l|p{3.7cm}}
 		\textbf{Shape}&Surface-to-Volume Ratio\\
 		&Orientation\\
 		&\\
@@ -302,8 +302,72 @@ There several methods for modelling and simulation (energy simulation) of buildi
 	\item The variable values can later on be manipulated by the optimisation algorithm to search for the optimum values through repeated simmulation of different values, thus reaching the optimum solution for each variable, or for overall optimum performance in multi-variable cases.
 \end{compactenum}
 
+Prominent examples of these programmes include \textsc{ecotoect, doe, energyplus}\ldots{}etc, among others.
 
+\section{Building Envelope Thermal Optimisation using Computer Algorithms}
 
+For the architect to successfully optimise a building envelope's thermal performance, a clear methodology with correct sequence of action, integrating the above presented information, should be followed. The process can be summarised in the following four stages:
+
+\subsection*{Stage 1: Analysis of Envelope Form}
+
+\paragraph{1. Develop an initial conceptual design}\mbox{}\\
+\begin{compactitem}
+	\item Analyse the context; building site and conditions
+	\item Develop the initial building image and type
+	\item Choose suitable structural technologies
+	\item Finalise the conceptual envelope design to include the basic architectural features
+\end{compactitem}
+
+\paragraph{2. Assign the developed building form to a predifined category of envelopes}\mbox{}\\
+
+Put the developed envelope under a genral category of building envelopes such as: \emph{Tent Structure}, \emph{Cylindrical Tower}, \emph{Cuboid Form}\ldots{}etc. This will have implications in the determination of the thermal control mechanisms.
+
+\subsection*{Stage 2: Thermal Criteria and Target Performance}
+
+\paragraph{1. Assign thermal performance targets at different internal spaces}\mbox{}\\
+
+Based on the requirements of the building and internal space functions, the architect should assigh the target temperature levels. These values will act as an input to the optimisation algorithm.
+
+\paragraph{2. Determine the thermal control mechanism}\mbox{}\\
+
+Depending on the category of building envelope, the most effective control mechanism should be chosen for optimisation. The mechanisms mentioned earlier (table \ref{tab:ThermalDesignVariables}) are an example of possible passive thermal control mechanisms.
+
+\subsection*{Stage 3: Virtual Modelling and Simulation}
+
+\paragraph{1. Creating the 3D Parametric Model}\mbox{}\\
+
+A parametric 3D model is to be created using suitable programmes. Examples of such programmes include \begin{inparaenum} \item parametric modelling environments such as \textsc{catia}, \item GUI enabled simulation programmes such as \textsc{ecotect}, and \item Building Information Modelling [BIM] programmes.\end{inparaenum}
+
+\paragraph{2. Simulation of the building model}\mbox{}\\
+
+Selcting the simmualtion programme si based on the control mechanism of thermal performance. A large number of simmulation programmes can be used; however, the most practical are usually the ones that allow both graphical modelling of building envelope inside the programme, and the ability to programme algorithms using a scripting language.
+
+\subsection*{Stage 4: Programming and optimisation}
+
+\paragraph{1. Determine the programming method}\mbox{}\\
+
+There are two possibilities in this case:
+\begin{compactenum}
+\item The simulation programme supports scripting; in this case the alorithm can be programmed directly into the simulation programme.
+\item The simulation programme does not support scripting; the algorithm has to be programmed using a programming language to create a programme that can take simulation results and process them externally and input back the new variable values.
+\end{compactenum}
+
+\paragraph{2. Choose the optimisation algorithm}\mbox{}\\
+
+Examples of optimisation which have been presented herein include:
+\begin{compactenum}
+\item \textbf{Genetic Algorithm:} Creates a \emph{set} of final solutions, giving the architect the advantage of choice.
+\item \textbf{Simmulated Annealing:} Focuses on find the global optimium.
+\item \textbf{Tabu Search:} Can handle very large solution spaces or complex problems.
+\end{compactenum}
+
+\paragraph{3. Inititate optimisation and simulation}\mbox{}\\
+
+The optimisation algorithm is now programmed, and the virtual model parameters are optimised through the algoruithm and each individual solution assessed by simulation.
+
+\paragraph{4. Termination conditions met}\mbox{}\\
+
+At this point the target values of the design intent have been met and the optimisation algorithm can terminate and present the final results.
 
 \end{multicols}
 
