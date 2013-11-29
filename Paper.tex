@@ -33,6 +33,12 @@
 \usetikzlibrary{shapes.geometric, arrows}
 
 %------------------
+% Code
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+%------------------
 % Hyperref
 \usepackage{hyperref}
 \hypersetup{pdftex,
@@ -101,7 +107,7 @@ However, as the architect approaches this method, he is faced with technical dif
 
 Algorithms are descriptions of steps to accomplish a specific task which allow the abstraction of a problem into parameters, or variables, and procedures, which are the detailed instructions given to the computer. The user inputs values of parameters, and the computer then calculates the outputs according the given procedure. The problem at hand is how to use these algorithms to create a computer programme that would analyse the building form and feed back the optimum solutions to the user (\emph{i.e.} the architect). 
 
-\paragraph{Building Geometry as Variables}\mbox{}\\[3mm]
+	\paragraph{Building Geometry as Variables}\mbox{}\\[3mm]
 The first step towards achieving this goal is understand the input needed by the algorithm (the algorithm being basically computer code); the building envelope has to analysed and broken down into variables and values. As any architect knows; geometry is built up from a point, to a line, to plane and to a solid. If the user of the algorithm can translate building geometry into at least the basic building block of any geometry, then the entry of building envelope data in a form that the algorithm can understand is possible.
 
 The minimum requirement is to create a procedure for creating a point in space; this procedure will be defined for the algorithm as follows:
@@ -130,7 +136,7 @@ Now that the general description and functionality of computer algorithms has be
 
 As far as architectural design is concerned; algorithms can be divided into two main types: \emph{Generative} and \emph{Performative}. \cite{fasoulaki08}
 
-\paragraph{Generative Algorithms}\mbox{}\\[3mm]
+	\paragraph{Generative Algorithms}\mbox{}\\[3mm]
 Architectural generative design is a process which uses \emph{rule-based}\footnote{\emph{Rule-based}: consisting of a solid set of consecutive instructions that govern an action to produce a desired outcome} algorithms, governed by repetitive patterns and shape transformations; these algorithms can be fully automated or user controlled in a step-by-step manner. What differentiates generative algorithms from each other are the form generating systems which drive the algorithm, usually adopted from naturally occurring behaviour of living organisms. \cite{arida04}
 
 Prominent generative algorithms used for architectural form generation purposes include:
@@ -142,54 +148,110 @@ Prominent generative algorithms used for architectural form generation purposes 
 \item L-System.
 \end{compactenum}
 
-Cellular Automata is a computational method which can simulate complex growth systems using simple rules, the initial configuration would include at least one cell (Fig. \ref{fig:CellularAuto}).
-\end{multicols}
+Out of the above, two examples are explained briefly here. Cellular Automata is a computational method which can simulate complex growth systems using simple rules, the initial configuration would include at least one cell (Fig. \ref{fig:CellularAuto}).
+
 \begin{Figure}
 	\centering	
-	\includegraphics[width=0.7\linewidth]{./Images/2-CellularAutomata}
+	\includegraphics[width=\linewidth]{./Images/2-CellularAutomata}
 	\captionof{figure}{An example of cellular automata showing (a) the sequence of generations and (b) the governing rule. \cite{wolfram02}}
 	\label{fig:CellularAuto}
 \end{Figure}
 
-\begin{multicols}{2}
 A Voronoi Diagram is a way of decomposing a space into regions, which is a process initiated with a set of points in space called generating points; then, lines are drawn from an equal distance from each two points, creating polygons or cells (Fig \ref{fig:Voronoi}).
 
 \begin{Figure}
-	\includegraphics[width=\linewidth]{./Images/3-VoronoiDiagram}
+	\centering
+	\includegraphics[width=0.8\linewidth]{./Images/3-VoronoiDiagram}
 	\captionof{figure}{A Voronoi Diagram \cite{fujita00}}
 	\label{fig:Voronoi}
 \end{Figure}
 
-\paragraph{Performative Algorithms}\mbox{}\\
+	\paragraph{Performative Algorithms}\mbox{}\\
 
-These types of algorithms are based on what is called optimisation algorithms; which would take a certain aspect of the building performance --- thermal performance of the envelope in this particular case --- and searches for solutions that would enhance the performance, ultimately finding the best solution. The underlying process of Performative Algorithms is called \emph{Mathematical Optimisation}.
+	These types of algorithms are based on what is called optimisation algorithms; which would take a certain aspect of the building performance --- thermal performance of the envelope in this particular case --- and searches for solutions that would enhance the performance, ultimately finding the best solution. The underlying process of Performative Algorithms is called \emph{Mathematical Optimisation}.
 
-\subparagraph{Mathematical Optimisation}
+		\subparagraph{Mathematical Optimisation}
 
-Optimisation mathematics and programming is called a \emph{search method}, which searches for and locates the \emph{optimum} solution. The optimum solution can be the maxium value of a function, or the minimum value of a function; therefore, all mathematical optimisation operations are either called \emph{minimisation} or \emph{maximisation} problems.
+		Optimisation mathematics and programming is called a \emph{search method}, which searches for and locates the \emph{optimum} solution. The optimum solution can be the maxium value of a function, or the minimum value of a function; therefore, all mathematical optimisation operations are either called \emph{minimisation} or \emph{maximisation} problems.
 
-The general mathematical form of unconstrained optimisation is:\\
+		The general mathematical form of unconstrained optimisation is:\\
 \begin{equation}
-\text{Minimise:} f(x), x=[x_1,x_2\dots,x_n]^T \in \mathbb{R}
+\text{min} f(x), x=[x_1,x_2\dots,x_n]^T \in \mathbb{R}
 \end{equation}
 The continuous components of $x$ are called the design variables, and $f(x)$ is the objective function. The optimum vector that solves the equation is denoted by \textbf{x*} with a corresponding optimum function value of $f(\text{\textbf{x*}})$ (Fig. \ref{fig:LocalOptimum}).
 
-The full process of mathematical optimisation is to take a real world problem (\emph{e.g.} thermal performance of a building envelope), construct it into a mathematical model of fixed parameters and variables, then process it through the optimisation algorithm, leading to the practical implication of the optimum solution (Fig. \ref{fig:OptimisationModel}).
+		The full process of mathematical optimisation is to take a real world problem (\emph{e.g.} thermal performance of a building envelope), construct it into a mathematical model of fixed parameters and variables, then process it through the optimisation algorithm, leading to the practical implication of the optimum solution (Fig. \ref{fig:OptimisationModel}).
 
+\end{multicols}
 \begin{Figure}
-	\includegraphics[width=\linewidth]{./Images/4-LocalOptimum}
+	\centering
+	\includegraphics[width=0.6\linewidth]{./Images/4-LocalOptimum}
 	\captionof{figure}{A single variable function with the optimum at \textbf{x*} \cite{snyman05}}
 	\label{fig:LocalOptimum}
 \end{Figure}
 
-\end{multicols}
 \begin{Figure}
 	\centering	
-	\includegraphics[width=0.8\linewidth]{./Images/5-OptimisationModel}
+	\includegraphics[width=0.7\linewidth]{./Images/5-OptimisationModel}
 	\captionof{figure}{The Mathematical Optimisation Modelling Process \cite{snyman05}}
 	\label{fig:OptimisationModel}
 \end{Figure}
 \begin{multicols}{2}
+
+	\paragraph{Types of Optimisation Algorithms}
+	Mathematical optimisation algorithms are numerous and differ greatly in solution space searching methods. The predominantly common algorithms in architectural applications are:
+	\begin{compactenum}
+	\item Genetic Algorithm
+	\item Simmulated Annaeling
+	\item Tabu Search
+	\end{compactenum}
+	It should be noted that although the three are very different in terms of origin and search method, they have one thing in common which is being under the \emph{Metaheuristic}\footnote{\emph{Metaheuristic}: an algorithm which guides a heuristic (self learning) search method} class of mathematical optimisation algorithms.
+	
+	\subparagraph{Genetic Algorithm}
+
+	Genetic Algorithms are \emph{evolutionary} algorithms which simulate biological evolution, and draws most of its terminology from biological evolutionary science.
+
+	The process of optimisation using GA can be described as follows: ``Under GA terminology, a solution to a problem is an \emph{individual}, and the group of solutions existent at each stage is a \emph{population}. Each time a new population of individuals is created it is called a \emph{generation}. In binary GA's[\dots]each individual is represented by a binary string called \emph{chromosome}, which encodes all parameters of interest corresponding to that individual. A chromosome of formed of \emph{alleles}; the binary coding bits. The fitness of any particular individual corresponds to the value of the objective function at that point''. \cite{caldas01}
+
+	An \emph{initial population} is randomly generated, with each of the individuals coded with different \emph{genetic} design variables (using the notion of chromosomes), then a number of stochastic operators start to manipulate the initial population, including \begin{inparaenum} \item \emph{crossovers}; the swapping of parts of chromosome values between different individuals, and \item \emph{mutation}; introducing new values randomly to some individuals to create diversity.\end{inparaenum}
+
+	Finally an elitist model is created from the best set of solutions in this generation, and is used as the initial population of the next generation, and the same loop keeps repeating until the termination criteria of the GA are met and the final set of solutions are recorded (see Fig. \ref{fig:GA}).
+
+	\begin{Figure}
+		\centering
+		\includegraphics[height=7cm]{./Images/6-GA}
+		\captionof{figure}{Flowchart showing stages of GA}
+		\label{fig:GA}
+	\end{Figure}
+
+	\subparagraph{Simmulated Annaeling}
+
+	Simmulated Annaeling is as mathematical optimisation method. It draws its terminology from the metallurgical process of annealing which is the heating and controlled cooling of metals to reach its ground state with the lowest internal energy \cite{lam88}. This search method is also Metaheuristic, with emphasis on find the \emph{global} maximum or minimum. The process of Simmulated Annealing is described by the following algorithm (in pseudocode):\\
+	
+		\begin{algorithmic}[1]
+			\State Get an initial state with energy $x$
+			\State Make the initial state the current state
+			\State Select an initial high temperature $T$
+			\While {System is not yet frozen}
+			\While {System is not yet in thermal equilibrium}
+				\State pick a random nearby state with energy $x_p$
+				\State let $\Delta x = x_p - x$
+				\If {$\Delta x \leq 0$}
+					\State the new state becomes the current state
+				\Else
+					\State reject state
+				\EndIf
+			\EndWhile
+			\State Reduce the temperature $T$ by $\Delta T$
+			\EndWhile
+			\State Output the current state
+		\end{algorithmic}
+
+	\subparagraph{Tabu Search}
+
+	Tabu Search depends on what are called \emph{adaptive memory} and {responsive expolration}. The basic principle is that it heavely uses different memory-based techniques to \begin{inparaenum} \item avoid revisiting previously tested solutions, \item to memorise elements that are common among good solutions, and \item the impact of choices made till a certain point on the progress of the search to find the optimum solution, which is an added level of self-learning.\end{inparaenum}
+
+	This makes Tabu Search a very intelligent search method, which is very efficient at find the optimum solutions in large solution spaces, or to complex problems.
 
 \section{Thermal Aspect of the Optimisational Problem}
 
@@ -203,7 +265,7 @@ Having explained the mathematical and basic programming concepts behind optimisa
 \indent$Qs=$Solar heat gain\\
 \indent$Qv=$Ventilation heat gain or loss\\
 \indent$Qe=$Evaporation heat loss\\
-\indent$\Delta S=$Difference in stored heat
+\indent$\Delta S=$Difference in stored heat\\
 \normalsize
 
 Given that solar radiation is the most significant variable in the above equation \cite{szokolay08}, it would be benefitial --- for the sake of simplicity --- to focus on the aspect of passive solar design when considering the thermal performance of building envelopes.
